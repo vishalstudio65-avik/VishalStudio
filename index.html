@@ -33,7 +33,7 @@ h1{margin:16px 0 4px;font-size:32px} .tag{color:#ddd;font-size:15px;margin-botto
 </section>
 
 <section class="actions">
-<a class="btn save" href="vcard.vcf" download="VishalStudio.vcf">💾 Save Contact <small>(Open & Save)</small></a>
+<a class="btn save" href="#" onclick="return saveContact(event)">💾 Save Contact</a>
 <a class="btn wa" href="https://wa.me/918922876374" target="_blank">💬 WhatsApp</a>
 <a class="btn call" href="tel:+918922876374">📞 Call</a>
 <a class="btn email" href="mailto:vishalstudio65@gmail.com">📧 Email</a>
@@ -42,5 +42,22 @@ h1{margin:16px 0 4px;font-size:32px} .tag{color:#ddd;font-size:15px;margin-botto
 
 <p class="note">Save Contact पर tap करके VishalStudio की details अपने फोन में save करें।<br>“अपना नंबर भेजें” से customer अपना नाम और नंबर WhatsApp पर भेज सकता है।</p>
 </main>
+<script>
+function saveContact(e){
+  e.preventDefault();
+  const name = encodeURIComponent('VishalStudio');
+  const phone = encodeURIComponent('+918922876374');
+  const email = encodeURIComponent('vishalstudio65@gmail.com');
+  const address = encodeURIComponent('MALAKA GARAPUR, PRAYAGRAJ');
+  // Android Chrome: ask the Contacts app to create a new contact with pre-filled fields.
+  const intent = 'intent://contacts/insert?name='+name+'&phone='+phone+'&email='+email+'&postal='+address+'#Intent;scheme=content;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;package=com.google.android.contacts;end';
+  if (/Android/i.test(navigator.userAgent)) {
+    window.location.href = intent;
+  } else {
+    window.location.href = 'vcard.vcf';
+  }
+  return false;
+}
+</script>
 </body>
 </html>
